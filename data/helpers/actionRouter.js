@@ -77,6 +77,26 @@ router.delete('/:id', (req, res) => {
         });
 });
 
-
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const actionInfo = req.body;
+    Action
+        .update(id, actionInfo)
+        .then(updatedAction => {
+            if(updatedAction) {
+                res.status(200).json(updatedAction);
+            } else {
+                res.status(404).json({
+                    message: "The action with the specified ID does not exist."
+                });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                message: "The action could not be updated."
+            });
+        });
+});
 
 module.exports = router;
