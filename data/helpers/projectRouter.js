@@ -57,4 +57,28 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const projectInfo = req.body;
+    Project
+        .update(id, projectInfo)
+        .then(updatedProject => {
+            if(updatedProject) {
+                res.status(200).json({
+                    message: "Project was updated successfully."
+                });
+            } else {
+                res.status(404).json({
+                    message: "The project with the specified ID does not exist."
+                });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                message: "There was a problem updating the project."
+            });
+        });
+});
+
 module.exports = router;
