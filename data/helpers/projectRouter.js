@@ -5,11 +5,10 @@ const Project = require('./projectModel');
 const router = express.Router();
 
 router.get('/', (req, res)=> {
-    const { id } = req.params;
     Project
-        .get(id)
+        .get()
         .then(projects => {
-                res.status(200).json(projects)
+            res.status(200).json(projects)
         })
         .catch(err => {
             res.status(500).json({
