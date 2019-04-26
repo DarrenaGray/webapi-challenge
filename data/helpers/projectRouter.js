@@ -8,12 +8,32 @@ router.get('/', (req, res)=> {
     const { id } = req.params;
     Project
         .get(id)
-        .then(projects => {           
+        .then(projects => {
                 res.status(200).json(projects)
         })
         .catch(err => {
             res.status(500).json({
                 error: err,
+                message: "The project could not be retrieved."
+            });
+        });
+});
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    Project
+        .get(id)
+        .then(project => {
+            if (project) {
+                res.status(200).json(project);
+            } else {
+                res.status(404).json({
+                    message: "The project with the specified ID does not exist."
+                });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({
                 message: "The project could not be retrieved."
             });
         });
@@ -77,6 +97,26 @@ router.put('/:id', (req, res) => {
             res.status(500).json({
                 error: err,
                 message: "There was a problem updating the project."
+            });
+        });
+});
+
+router.get('/:id/actions', (req, res) => {
+    const actions = req.params.id;
+    Project
+        .getProjectActions(actions)
+        .then(action => {
+            if (action.length !== 0) {
+                res.status(200).json(action);
+            } else {
+                res.status(404).json({
+                    message: "The project with the specified ID does not exist."
+                });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: "The project could not be retrieved."
             });
         });
 });
