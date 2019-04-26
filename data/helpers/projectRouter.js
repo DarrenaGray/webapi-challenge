@@ -14,7 +14,7 @@ router.get('/', (req, res)=> {
         .catch(err => {
             res.status(500).json({
                 error: err,
-                errorMessage: "The project could not be retrieved."
+                message: "The project could not be retrieved."
             });
         });
 });
@@ -29,7 +29,30 @@ router.post('/', (req, res) => {
         .catch(err => {
             res.status(500).json({
                 error: err,
-                errorMessage: "There was a problem saving this project."
+                message: "There was a problem saving this project."
+            });
+        });
+});
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    Project
+        .remove(id)
+        .then(deletedProject => {
+            if(deletedProject) {
+                res.status(201).json({
+                    message: "Project was deleted successfully."
+                });
+            } else {
+                res.status(404).json({
+                    message:  "The project with the specified ID does not exist."
+                });
+            };
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                message: "The project could not be deleted."
             });
         });
 });
