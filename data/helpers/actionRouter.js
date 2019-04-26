@@ -39,6 +39,21 @@ router.get('/:id', (req, res) => {
         });
 });
 
+router.post('/', (req, res) => {
+    const { project_id, description, notes } = req.body;
+    Action
+        .insert( { project_id, description, notes })
+        .then(() => {
+            res.status(201).json();
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                message: "There was an error while saving the action to the database."
+            });
+        });
+});
+
 
 
 module.exports = router;
