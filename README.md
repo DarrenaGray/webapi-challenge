@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    I learned about routing and using helpers to breakup applications into smaller pieces
+
 - [ ] Describe Middleware?
+
+    Middleware is a tool that is used to add different functionalities to the API
 
 - [ ] Describe a Resource?
 
+    A resource is the data being requested from API database
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    An API can return an http status to let a user/client know if the request was successful
+
 - [ ] How can we partition our application into sub-applications?
+
+    We can use server side routing to partition the applicaton into sub-applications
 
 ## Project Setup
 
